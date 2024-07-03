@@ -121,7 +121,7 @@ namespace Adventure.Classes
             }
             else if ((int)monster.selectedLevel == 2)
             {
-                AttackValue = (random.Next(10, 20));
+                AttackValue = (random.Next(10, 19));
             }
             else
             {
@@ -149,15 +149,15 @@ namespace Adventure.Classes
             player.Defense  += 5 * ++Level;
             Demage = 0;
             Console.WriteLine($" your Level is {Level} \n and Health is{player.Health } and the Defense is {player.Defense }");
-            DefensePlayer(ref player);
+            
             Console.WriteLine($"\n and Yur Defense is {player.Defense}");
             monster.Health = 100;
             attacker = true;
         }
-        public void DefensePlayer(ref Player player)
-        {
-            player.Defense += xp;
-        }
+        //public void DefensePlayer(ref Player player)
+        //{
+        //    player.Defense += xp;
+        //}
       public void ReduceHealthPlayer(ref Player player, int attackMonster)
         {
             

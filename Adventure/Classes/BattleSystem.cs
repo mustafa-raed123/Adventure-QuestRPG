@@ -154,10 +154,7 @@ namespace Adventure.Classes
             monster.Health = 100;
             attacker = true;
         }
-        //public void DefensePlayer(ref Player player)
-        //{
-        //    player.Defense += xp;
-        //}
+       
       public void ReduceHealthPlayer(ref Player player, int attackMonster)
         {
             

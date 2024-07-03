@@ -17,8 +17,6 @@ namespace Adventure.Classes
             int xp = 0;
              public bool Test = false;  // For the Test
             Level selectedLevel;
-
-
         public void StartBattle(Player player , ClsMonster monster)
         {
             if (!Test)

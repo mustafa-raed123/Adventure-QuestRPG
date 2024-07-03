@@ -1,4 +1,5 @@
 using Adventure.Classes;
+using static Adventure.Classes.Monster;
 
 namespace AdventTest
 {

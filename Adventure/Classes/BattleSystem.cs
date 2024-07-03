@@ -5,6 +5,7 @@ using System.Net.Security;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using static Adventure.Classes.Monster;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Adventure.Classes
@@ -12,39 +13,39 @@ namespace Adventure.Classes
     public class BattleSystem
     {
             bool attacker= true;
-            int Level = 1;
+            int Level  = 0;
             int Demage = 0;
-            int xp = 0;
+            int xp  = 0;
              public bool Test = false;  // For the Test
-          //Created by mustafa and muhammad
+          //  Level selectedLevel;
         public void StartBattle(Player player , ClsMonster monster)
         {
-            if (!Test)
-            {
-                monster.ChooseLevel();
-            }
+            //if (!Test)
+            //{
+            //    monster.ChooseLevel();
+            //}
             do
             {
-                if (!attacker)
+                //if (!attacker)
 
-                {
-                    if (Test)
-                    {
-                        return;
-                    }
-                    Console.WriteLine("you win");
-                    Console.WriteLine("DO you want to :(yes / no) ");
-                    string rep = Console.ReadLine();
-                    if(rep  == "yes")
-                    {
-                        Repeate ( ref player,ref monster);
-                        continue;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
+                //{
+                //    if (Test)
+                //    {
+                //        return;
+                //    }
+                //    Console.WriteLine("you win");
+                //    Console.WriteLine("DO you want to :(yes / no) ");
+                //    string rep = Console.ReadLine();
+                //    if(rep  == "yes")
+                //    {
+                //        Repeate ( ref player,ref monster);
+                //        continue;
+                //    }
+                //    else
+                //    {
+                //        return;
+                //    }
+                //}
                 if (attacker) {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"{player.Name} Turn: ");
@@ -68,7 +69,7 @@ namespace Adventure.Classes
 
         }
         public void Attack(ref Player player, ref ClsMonster monster) {
-            Thread.Sleep(300);
+
             player.AttackPower = GetAttackPowerPlayer();
             Console.WriteLine($"your Attack Power is {player.AttackPower}");
             Demage += player.AttackPower; 
@@ -87,8 +88,6 @@ namespace Adventure.Classes
         }
         public void Attack(ref ClsMonster monster, ref Player player)
         {
-            Thread.Sleep(300);
-
             monster.AttackPower = GetAttackPowerMonster(monster);
             ReduceHealthPlayer(ref player, monster.AttackPower);
             if (player.Health > 0)
@@ -111,6 +110,7 @@ namespace Adventure.Classes
             return AttackValue = (random.Next(15, 20));
 
         }
+
         public int GetAttackPowerMonster(ClsMonster monster)
         {
             Random random = new Random();
@@ -121,7 +121,7 @@ namespace Adventure.Classes
             }
             else if ((int)monster.selectedLevel == 2)
             {
-                AttackValue = (random.Next(10, 19));
+                AttackValue = (random.Next(10, 20));
             }
             else
             {
@@ -139,22 +139,25 @@ namespace Adventure.Classes
             Console.ResetColor();
 
         }
-        public void Repeate(ref Player player,ref ClsMonster monster)
+        //public void Repeate(ref Player player,ref ClsMonster monster)
+        //{
+            
+        //    player.Health = (int)((player.Health + (Demage / 3)) * 1.3);
+        //    if (player.Health > 100) {
+        //        player.Health = 100;
+        //    }
+        //    player.Defense  += 5 * ++Level;
+        //    Demage = 0;
+        //    Console.WriteLine($" your Level is {Level} \n and Health is{player.Health } and the Defense is {player.Defense }");
+        //    DefensePlayer(ref player);
+        //    Console.WriteLine($"\n and Yur Defense is {player.Defense}");
+        //    monster.Health = 100;
+        //    attacker = true;
+        //}
+        public void DefensePlayer(ref Player player)
         {
-            
-            player.Health = (int)((player.Health + (Demage / 3)) * 1.3) ;
-            if (player.Health > 100) {
-                player.Health = 100;
-            }
-            player.Defense  += 5 * ++Level;
-            Demage = 0;
-            Console.WriteLine($" your Level is {Level} \n and Health is{player.Health } and the Defense is {player.Defense }");
-            
-            Console.WriteLine($"\n and Yur Defense is {player.Defense}");
-            monster.Health = 100;
-            attacker = true;
+            player.Defense += xp;
         }
-       
       public void ReduceHealthPlayer(ref Player player, int attackMonster)
         {
             

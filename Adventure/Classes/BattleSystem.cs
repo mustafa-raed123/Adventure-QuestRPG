@@ -16,7 +16,7 @@ namespace Adventure.Classes
             int Demage = 0;
             int xp = 0;
              public bool Test = false;  // For the Test
-            Level selectedLevel;
+          //  Level selectedLevel;
         public void StartBattle(Player player , ClsMonster monster)
         {
             if (!Test)
@@ -64,7 +64,7 @@ namespace Adventure.Classes
                
                
             } while (player.Health > 0);
-            
+
 
         }
         public void Attack(ref Player player, ref ClsMonster monster) {

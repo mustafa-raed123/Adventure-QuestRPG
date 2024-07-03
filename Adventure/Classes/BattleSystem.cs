@@ -68,7 +68,7 @@ namespace Adventure.Classes
 
         }
         public void Attack(ref Player player, ref ClsMonster monster) {
-
+            Thread.Sleep(300);
             player.AttackPower = GetAttackPowerPlayer();
             Console.WriteLine($"your Attack Power is {player.AttackPower}");
             Demage += player.AttackPower; 
@@ -87,6 +87,8 @@ namespace Adventure.Classes
         }
         public void Attack(ref ClsMonster monster, ref Player player)
         {
+            Thread.Sleep(300);
+
             monster.AttackPower = GetAttackPowerMonster(monster);
             ReduceHealthPlayer(ref player, monster.AttackPower);
             if (player.Health > 0)

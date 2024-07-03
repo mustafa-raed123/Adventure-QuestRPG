@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Adventure.Classes
 {
-    internal interface _
+    internal interface IBattleStates
     {
 
 

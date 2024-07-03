@@ -12,11 +12,11 @@ namespace Adventure.Classes
     public class BattleSystem
     {
             bool attacker= true;
-            int Level = 0;
+            int Level = 1;
             int Demage = 0;
             int xp = 0;
              public bool Test = false;  // For the Test
-          //  Level selectedLevel;
+          
         public void StartBattle(Player player , ClsMonster monster)
         {
             if (!Test)

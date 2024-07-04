@@ -50,6 +50,8 @@ namespace Adventure.Classes
                         
                         );
                     Lsmonsters.Add(monster);
+
+
                 }
                 
             }

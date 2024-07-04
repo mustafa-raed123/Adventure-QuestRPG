@@ -195,6 +195,7 @@ namespace Adventure.Classes
                 {
                     Console.WriteLine("You win");
                     CompleteGame(ref player);
+
                     Console.WriteLine("DO you want to Complete the Game:(yes / no) ");
                     if (CheckValidInput())
                     {

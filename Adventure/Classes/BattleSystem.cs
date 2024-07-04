@@ -104,25 +104,7 @@ namespace Adventure.Classes
 
         }
 
-        //public int GetAttackPowerMonster(Monster monster)
-        //{
-        //    Random random = new Random();
-        //    int AttackValue;
-        //    if ((int)monster.selectedLevel == 3)
-        //    {
-        //        AttackValue = (random.Next(15, 20));
-        //    }
-        //    else if ((int)monster.selectedLevel == 2)
-        //    {
-        //        AttackValue = (random.Next(10, 20));
-        //    }
-        //    else
-        //    {
-        //        AttackValue = (random.Next(7, 15));
-        //    }
-        //    return AttackValue;
 
-        //}
         public void PrintInfo(Player player  , Monster monster) {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"{player.Name } Health is {player.Health} , And Defense is {player.Defense}");
@@ -150,10 +132,7 @@ namespace Adventure.Classes
             if (player.Defense < 0) player.Defense = 0;
 
         }
-        // public GetAttackPowerMonsster(string name)
-        //{
-        //    monster
-        //}
+   
 
 
 

@@ -20,7 +20,7 @@ namespace Adventure.Classes
         List<Monster> lsMonstoer { get; set; }
         List<string> lsLocations = new List<string> { "Forest", "Town", "Caves", "Mines", "Demonic Deserts" };
 
-        List<string> lsLocation = new List<string> { "Forest", "Town", "Caves", "Mines", "Demonic Deserts" };
+       // List<string> lsLocation = new List<string> { "Forest", "Town", "Caves", "Mines", "Demonic Deserts" };
         List<Monster> lsMonsterThatChoosen = new List<Monster>();
 
         List<string> lsLocationsThatChoosen = new List<string>();
@@ -41,33 +41,24 @@ namespace Adventure.Classes
             var MOnsterAttackPower = 1;
             for (int i = 0; i < 5; i++)
             {
-
-                //  HealthLevel = 45 * (i + 1);
-                HealthLevel = 5 * (i + 1);
-
-
                 if (i == 4)
                 {
-                    //   MOnsterAttackPower = (i + 1) * 9;
-                    MOnsterAttackPower = (i + 1) * 2;
+                    
+                    MOnsterAttackPower = (i + 2) * 4;
+                    HealthLevel = 20 * (i + 9);
 
                     BossMonster BossMonster = new BossMonster($"{MonsterNmae[i]}", HealthLevel, MOnsterAttackPower);
                     lsMonstoer.Add(BossMonster);
                 }
                 else
                 {
-                    // MOnsterAttackPower = (i + 1) * 4;
-                    MOnsterAttackPower = (i + 1) * 2;
-
-                    ClsMonster monster = new ClsMonster($"{MonsterNmae[i]}", HealthLevel, MOnsterAttackPower
-
-                        );
+                     
+                    HealthLevel = 20 * (i + 2);
+                    MOnsterAttackPower = (i + 5) * 3;
+                    ClsMonster monster = new ClsMonster($"{MonsterNmae[i]}", HealthLevel, MOnsterAttackPower);
                     lsMonstoer.Add(monster);
                 }
-
             }
-
-
         }
         public int ChoiceRandomlyLocation()
         {
@@ -129,8 +120,9 @@ namespace Adventure.Classes
         }
         public bool CheckValidInput()
         {
-            string playerChoice;
+            string playerChoice ="";
             bool validInput = false;
+            bool IsConinue = false;
 
             while (!validInput)
             {
@@ -146,28 +138,32 @@ namespace Adventure.Classes
                     Console.WriteLine("Invalid input. Please try again.");
                 }
             }
+            if (playerChoice == "yes") {
 
-            return validInput;
+                IsConinue = true;
+            }
+            else
+            {
+                IsConinue = false;
+            }
+
+            return IsConinue;
         }
 
 
         public void StartGame(Player player)
         {
             //it Edited!
+            bool isContinue = true;
             MonsterChoice();
-            while (player.Health > 0)
+            while (player.Health > 0 && isContinue)
             {
-                // ClsMonster cmonster =new ClsMonster("dfh",100,12);
+
                 Monster monster = lsMonstoer[ChoiceRandomlyMonster()];
 
-
-                //string LocationName = lsLocations[ChoiceRandomlyLocation()];
-                //if (monster.Health == 0) continue;
-                //ChoiceLocation();
-                //bool CheckLocation = isLocatinChoosen(LocationName);
                 int index = ChoiceRandomlyLocation();
                 LocationName = lsLocations[index];
-                //CheckLocation = isLocatinChoosen(LocationName);
+                
 
 
                 Console.WriteLine();
@@ -178,18 +174,6 @@ namespace Adventure.Classes
                 Console.WriteLine("Press any think to start the game ");
                 Console.ReadKey();
 
-                //MonsterChoice();
-                // while(player.Health > 0)  {
-                //   Monster monster =  lsMonstoer[ChoiceRandomlyLocation()];
-                //    if (monster.Health == 0) continue;
-                //    ChoiceLocation();       
-                //    Console.WriteLine();
-                //    Console.WriteLine("\t┌────────────────────────────────────────────────────────────────────┐");
-                //    Console.WriteLine($"\t│                {player.Name}          &         {monster.Name}" + "                   │ "); 
-                //    Console.WriteLine("\t└────────────────────────────────────────────────────────────────────┘");
-                //    Console.WriteLine($"                          Location      {CurrentLocation}");
-                //    Console.WriteLine("Press any think to start the game ");
-                //    Console.ReadKey();
                 bool IsWin = battleSystem.StartBattle(ref player, ref monster);
                 if (IsWin && Level < 5)
                 {
@@ -197,25 +181,8 @@ namespace Adventure.Classes
                     CompleteGame(ref player);
 
                     Console.WriteLine("DO you want to Complete the Game:(yes / no) ");
-                    if (CheckValidInput())
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        return;
-                    }
-
-                    //if (rep == "yes")
-                    //{
-                    //    continue;
-
-                    //}
-                    //else
-                    //{
-                    //    return;
-                    //}
-                }
+                     isContinue = CheckValidInput();                  
+                } 
                 else
                 {
                     return;

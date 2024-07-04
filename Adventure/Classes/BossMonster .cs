@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Adventure.Classes
 {
-    internal class BossMonster
+    public class BossMonster : Monster
     {
 
+        public BossMonster(string Name , int Health, int AttackPower) : base(Name , Health , AttackPower)
+        {
+           
+        }
     }
 }

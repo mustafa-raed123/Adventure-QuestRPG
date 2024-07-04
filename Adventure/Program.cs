@@ -7,14 +7,16 @@ namespace Adventure
     {
         static void Main(string[] args)
         {
+            Player player = new Player("Mustafa", 100 ,500);
             Adventures adventure = new Adventures();
-            adventure.MonsterChoice();
 
-            Player player = new Player("Mustafa", 100);
-            ClsMonster monster = new ClsMonster("monster", 100 );
-            BattleSystem battleSystem = new BattleSystem();
-            battleSystem.StartBattle(player, monster);
+            adventure.StartGame(player);
+
+            ////ClsMonster monster = new ClsMonster("monster", 100 );
+            //BattleSystem battleSystem = new BattleSystem();
+            ////battleSystem.StartBattle(player, monster);
             EndBattle(player);
+            
 
         }
 

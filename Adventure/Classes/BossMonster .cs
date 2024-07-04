@@ -9,9 +9,9 @@ namespace Adventure.Classes
     public class BossMonster : Monster
     {
 
-        public BossMonster(string Name , int Health) : base(Name , Health)
+        public BossMonster(string Name , int Health, int AttackPower) : base(Name , Health , AttackPower)
         {
-            Defense = 1000;
+           
         }
     }
 }

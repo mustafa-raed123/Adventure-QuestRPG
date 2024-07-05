@@ -7,7 +7,7 @@ namespace Adventure
     {
         static void Main(string[] args)
         {
-            Player player = new Player("Mustafa", 100 ,500);
+            Player player = new Player("Mustafa", 100 ,20);
             Adventures adventure = new Adventures();
 
             adventure.StartGame(player);

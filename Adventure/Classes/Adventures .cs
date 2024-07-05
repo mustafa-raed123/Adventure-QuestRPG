@@ -171,8 +171,7 @@ namespace Adventure.Classes
                 Console.WriteLine($"\t│                {player.Name}          &         {monster.Name}" + "                   │ ");
                 Console.WriteLine("\t└────────────────────────────────────────────────────────────────────┘");
                 Console.WriteLine($"                          Location      {LocationName}\n");
-                Console.WriteLine("Press any think to start the game ");
-                Console.ReadKey();
+               
 
                 bool IsWin = battleSystem.StartBattle(ref player, ref monster);
                 if (IsWin && Level < 5)

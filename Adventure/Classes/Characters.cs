@@ -18,17 +18,17 @@ namespace Adventure.Classes
         public int Defense { get; set; }
         public int xp { get; set; }
 
-        public Characters(string Name, int Health, int xp)
+        public Characters(string Name, int Health, int AttackPower)
         {
             this.Name = Name;
             this.Health = Health;
-            this.xp = xp;
+            this.AttackPower = AttackPower;
         }
     }
     public class Player : Characters
     {
         public Inventory  Inventory { get; set; }
-        public Player(string Name, int Health ,int xp) : base(Name, Health,xp)
+        public Player(string Name, int Health ,int AttackPower) : base(Name, Health,AttackPower)
         {   
             Inventory = new Inventory();
         }    

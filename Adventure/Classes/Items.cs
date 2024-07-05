@@ -25,10 +25,10 @@ namespace Adventure.Classes
         public int Damage { get; set; }
         public int AttackSpeed { get; set; }
 
-        public Weapon(int damage,int attackSpeed,string name,string description):base(name,description)
+        public Weapon(int damage ,string name , string description):base(name,description)
         {
             Damage = damage;
-            AttackSpeed=attackSpeed;
+         
             
         }
     }

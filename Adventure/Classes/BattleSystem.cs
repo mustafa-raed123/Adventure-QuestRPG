@@ -18,6 +18,7 @@ namespace Adventure.Classes
             int xp  = 0;
              public bool Test = false;  // For the Test
             bool  IsWin = false;
+          List<string>lsPlayerInventory = new List<string>();
           //  Level selectedLevel;
         public bool StartBattle(ref Player player ,ref Monster monster)
         {
@@ -61,6 +62,14 @@ namespace Adventure.Classes
 
             return false;
         }
+
+        public bool RandomItem()
+        {
+            Random random = new Random();
+            int Item=random.Next(1,100);
+            return Item>0 && Item<=20;
+
+        }
         public void Attack(ref Player player, ref Monster monster) {
 
             player.AttackPower = GetAttackPowerPlayer();
@@ -68,15 +77,28 @@ namespace Adventure.Classes
             Demage += player.AttackPower; 
             monster.Health -= player.AttackPower;
             if (monster.Health > 0)
-            { 
+            {
 
                 PrintInfo(player, monster);
-            }else
+            }
+            else
             {
-                monster.Health = 0; 
+                //int ItemDroped=RandomItem();
+                if(RandomItem())
+                {
+                    //determine the type of item and add it to lsPlayerInventory
+                }
+                monster.Health = 0;
                 PrintInfo(player, monster);
                 attacker = false;
             }
+
+            //else 
+            //{
+            //    monster.Health = 0; 
+            //    PrintInfo(player, monster);
+            //    attacker = false;
+            //}
 
         }
         public void Attack(ref Monster monster, ref Player player)

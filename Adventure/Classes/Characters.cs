@@ -27,10 +27,10 @@ namespace Adventure.Classes
     }
     public class Player : Characters
     {
-
+        public Inventory  Inventory { get; set; }
         public Player(string Name, int Health ,int xp) : base(Name, Health,xp)
         {   
-
+            Inventory = new Inventory();
         }    
 
     }

@@ -20,7 +20,7 @@ namespace Adventure.Classes
              public bool Test = false;  // For the Test
             bool  IsWin = false;
           List<string>lsPlayerInventory = new List<string>();
-          //  Level selectedLevel;
+          
         public bool StartBattle(ref Player player ,ref Monster monster)
         {
             inventory.CheckUseItems(ref player);
@@ -72,13 +72,11 @@ namespace Adventure.Classes
         public bool RandomItem()
         {
             Random random = new Random();
-            int Item=random.Next(1,21);
+            int Item=random.Next(1,40);
             return Item<=20;
 
         }
         public void Attack(ref Player player, ref Monster monster) {
-
-            //player.AttackPower = GetAttackPowerPlayer();
             Console.WriteLine($"your Attack Power is {player.AttackPower}");
             Demage += player.AttackPower; 
             monster.Health -= player.AttackPower;
@@ -86,28 +84,19 @@ namespace Adventure.Classes
             {
 
                 PrintInfo(player, monster);
+                Console.WriteLine("------------------------------");
             }
             else
             {
-                //int ItemDroped=RandomItem();
-
                 monster.Health = 0;
                 PrintInfo(player, monster);
                 attacker = false;
                 if (RandomItem())
                 {
-                    //determine the type of item and add it to lsPlayerInventory
                     InventoryPlayer();
                 }
+                
             }
-
-            //else 
-            //{
-            //    monster.Health = 0; 
-            //    PrintInfo(player, monster);
-            //    attacker = false;
-            //}
-
         }
         public void Attack(ref Monster monster, ref Player player)
         {
@@ -117,6 +106,7 @@ namespace Adventure.Classes
             {
 
                 PrintInfo(player, monster);
+                Console.WriteLine("------------------------------");
             }
             else
             {
@@ -126,14 +116,6 @@ namespace Adventure.Classes
             }
 
         }
-        //public int GetAttackPowerPlayer( )
-        //{
-        //    Random random = new Random();
-        //    int AttackValue;
-        //    return AttackValue = (random.Next(15, 20));
-
-        //}
-
 
         public void PrintInfo(Player player  , Monster monster) {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -143,9 +125,7 @@ namespace Adventure.Classes
 
             Console.ResetColor();
 
-        }
- 
-      
+        } 
       public void ReduceHealthPlayer(ref Player player, int attackMonster)
         {
             
@@ -175,9 +155,9 @@ namespace Adventure.Classes
         }
         public Weapon Weapons()
         {
-            Weapon weapon1 = new Weapon(20, "Sword", "A sharp weapon used in close combat. The sword can have one or two edges");
-            Weapon weapon2 = new Weapon(25, "Axes", "A heavy weapon with a sharp metal head.");
-            Weapon weapon3 = new Weapon(30, "Gun", "A firearm designed for rapid, automatic fire,\n capable of shooting multiple rounds per minute. Machine guns often come with a large magazine or belt-fed ammunition system");
+            Weapon weapon1 = new Weapon(25, "Sword", "A sharp weapon used in close combat. The sword can have one or two edges");
+            Weapon weapon2 = new Weapon(30, "Axes", "A heavy weapon with a sharp metal head.");
+            Weapon weapon3 = new Weapon(35, "Gun", "A firearm designed for rapid, automatic fire,\n capable of shooting multiple rounds per minute. Machine guns often come with a large magazine or belt-fed ammunition system");
 
 
 
@@ -187,10 +167,10 @@ namespace Adventure.Classes
         }
         public Armor Armor()
         {
-            Armor armor1 = new Armor(10, "Light Armor", "Provides moderate protection against physical and magical attacks");
-            Armor armor2 = new Armor(15, "Medium Armor", "Strikes a balance between protection and agility,\n providing moderate protection while maintaining some movement speed");
+            Armor armor1 = new Armor(20, "Light Armor", "Provides moderate protection against physical and magical attacks");
+            Armor armor2 = new Armor(30, "Medium Armor", "Strikes a balance between protection and agility,\n providing moderate protection while maintaining some movement speed");
            
-            Armor armor3 = new Armor(20, "Heavy Armor", "Offers very high protection against physical attacks but reduces character movement speed");
+            Armor armor3 = new Armor(35, "Heavy Armor", "Offers very high protection against physical attacks but reduces character movement speed");
 
             List<Armor> weapons = new List<Armor> { armor1, armor2, armor3 };
             return weapons[RandomNum()];

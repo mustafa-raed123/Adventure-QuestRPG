@@ -12,115 +12,74 @@ namespace Adventure.Classes
 {
     public class Adventures
     {
-        string CurrentLocation;
-        //  Player player;
         BattleSystem battleSystem;
-
+        bool ForTestUnit = true;
         public int Level = 1;
-        List<Monster> lsMonstoer { get; set; }
+        public List<Monster> lsMonstoer { get; set; }
         List<string> lsLocations = new List<string> { "Forest", "Town", "Caves", "Mines", "Demonic Deserts" };
-
-       // List<string> lsLocation = new List<string> { "Forest", "Town", "Caves", "Mines", "Demonic Deserts" };
-        List<Monster> lsMonsterThatChoosen = new List<Monster>();
-
-        List<string> lsLocationsThatChoosen = new List<string>();
+        public string CurrentLocation = "Forest";
+        List<Monster> lsMonsterThatChoosen = new List<Monster>(); 
         string LocationName = "";
 
         public Adventures()
         {
-            // this.player = player;
             lsMonstoer = new List<Monster>();
             battleSystem = new BattleSystem();
         }
 
-        public void MonsterChoice()
+        public void ChoiceMonster()
         {
             string[] MonsterNmae = { "Zompie", "Hydra ", " Orc  ", "Golem ", "Dragon" };
 
             var HealthLevel = 1;
             var MOnsterAttackPower = 1;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < MonsterNmae.Length; i++)
             {
                 if (i == 4)
                 {
                     
                     MOnsterAttackPower = (i + 2) * 4;
-                    HealthLevel = 20 * (i + 9);
-
+                    HealthLevel = 22 * (i + 9);
                     BossMonster BossMonster = new BossMonster($"{MonsterNmae[i]}", HealthLevel, MOnsterAttackPower);
                     lsMonstoer.Add(BossMonster);
                 }
                 else
                 {
                      
-                    HealthLevel = 20 * (i + 2);
+                    HealthLevel = 15 * ((i+1) + 2);
                     MOnsterAttackPower = (i + 5) * 3;
                     ClsMonster monster = new ClsMonster($"{MonsterNmae[i]}", HealthLevel, MOnsterAttackPower);
                     lsMonstoer.Add(monster);
                 }
             }
         }
-        public int ChoiceRandomlyLocation()
+        public bool isMonsterChoosen(Monster monster)
         {
-            int IndexLocation = 0;
-            Random random = new Random();
-
-            IndexLocation = random.Next(0, 5);
-
-            while (isLocatinChoosen(lsLocations[IndexLocation]))
+            foreach (var chosenMonster in lsMonsterThatChoosen)
             {
-                IndexLocation = random.Next(0, 5);
-            }
-
-            lsLocationsThatChoosen.Add(lsLocations[IndexLocation]);
-
-            return IndexLocation;
-        }
-        public bool isMonsterChoosen(Monster Monster)
-        {
-            for (int i = 0; i < lsLocationsThatChoosen.Count; i++)
-            {
-                if (lsMonsterThatChoosen[i].Name == Monster.Name)
+                if (chosenMonster.Name == monster.Name)
                 {
                     return true;
                 }
-
             }
             return false;
-
         }
         public int ChoiceRandomlyMonster()
         {
-            int IndexMonster = 0;
             Random random = new Random();
+            int indexMonster;
 
-            IndexMonster = random.Next(0, 5);
-
-            while (isMonsterChoosen(lsMonstoer[IndexMonster]))
+            do
             {
-                IndexMonster = random.Next(0, 5);
-            }
+                indexMonster = random.Next(0, lsMonstoer.Count);
+            } while (isMonsterChoosen(lsMonstoer[indexMonster]));
 
-            lsMonsterThatChoosen.Add(lsMonstoer[IndexMonster]);
-
-            return IndexMonster;
-        }
-        public bool isLocatinChoosen(string LocationName)
-        {
-            for (int i = 0; i < lsLocationsThatChoosen.Count; i++)
-            {
-                if (lsLocationsThatChoosen[i] == LocationName)
-                {
-                    return true;
-                }
-
-            }
-            return false;
-
+            lsMonsterThatChoosen.Add(lsMonstoer[indexMonster]);
+            return indexMonster;
         }
         public bool CheckValidInput()
         {
-            string playerChoice ="";
+            string playerChoice = "";
             bool validInput = false;
             bool IsConinue = false;
 
@@ -138,7 +97,8 @@ namespace Adventure.Classes
                     Console.WriteLine("Invalid input. Please try again.");
                 }
             }
-            if (playerChoice == "yes") {
+            if (playerChoice == "yes")
+            {
 
                 IsConinue = true;
             }
@@ -149,30 +109,22 @@ namespace Adventure.Classes
 
             return IsConinue;
         }
-
-
         public void StartGame(Player player)
         {
-            //it Edited!
             bool isContinue = true;
-            MonsterChoice();
+            ChoiceMonster();
             while (player.Health > 0 && isContinue)
             {
 
                 Monster monster = lsMonstoer[ChoiceRandomlyMonster()];
 
-                int index = ChoiceRandomlyLocation();
-                LocationName = lsLocations[index];
-                
-
-
+                ChoiceLocation();
                 Console.WriteLine();
                 Console.WriteLine("\t┌────────────────────────────────────────────────────────────────────┐");
                 Console.WriteLine($"\t│                {player.Name}          &         {monster.Name}" + "                   │ ");
                 Console.WriteLine("\t└────────────────────────────────────────────────────────────────────┘");
-                Console.WriteLine($"                          Location      {LocationName}\n");
+                Console.WriteLine($"                               Location        {CurrentLocation}\n");
                
-
                 bool IsWin = battleSystem.StartBattle(ref player, ref monster);
                 if (IsWin && Level < 5)
                 {
@@ -188,21 +140,28 @@ namespace Adventure.Classes
                 }
             }
         }
-
         public void CompleteGame(ref Player player)
         {
-            player.xp += 200;
-            player.Health = 100;
-            player.Defense += 10 * ++Level;
-            Console.WriteLine($" your Level up to {Level} \n and Health is{player.Health} and the Defense is {player.Defense}");
-            Console.WriteLine($"\n and Yur Defense is {player.Defense}");
+          
+            player.Health += 20;
+            if(player.Health > 100)
+            {
+                player.Health = 100;
+            }
+            
+            Console.WriteLine($" and Your your Level up to {++Level} \n and Health is{player.Health}");
+           
         }
         public void ChoiceLocation()
         {
-            Console.WriteLine("IN Which Location Do you Want to Play:   ");
+            Console.WriteLine($"You are currently in {CurrentLocation}. Would you like to change your location? (Yes/No)");
 
-
-            //List<string> lsLocations = new List<string> { "Forest", "Town", "Caves", "Mines", "Demonic Deserts" };
+            string ChoiseLocation = Console.ReadLine().ToLower();
+            if(ChoiseLocation != "yes" && ChoiseLocation != "y")
+            {
+                return;
+            }
+            Console.WriteLine("Please enter the name of the location where you would like to play:");
             Console.Write("{");
             for (int i = 0; i < lsLocations.Count; i++)
             {
@@ -210,11 +169,32 @@ namespace Adventure.Classes
                 Console.Write($"{lsLocations[i]} = {i + 1} ,");
             }
             Console.WriteLine("}");
-            int Choicecurrent = Convert.ToInt16(Console.ReadLine());
-            CurrentLocation = lsLocations[Choicecurrent - 1];
+            
+            if (int.TryParse(Console.ReadLine(), out int ChoiceLocationINdex))
+            {
+                ChangeCurrrentLocation(ChoiceLocationINdex);
+            }
+            else
+            {
+                Console.WriteLine("Envalid Input ");
+                return;
+            }
 
 
         }
+        public void ChangeCurrrentLocation(int Choicecurrent)
+        {
+            if (Choicecurrent <= 0 || Choicecurrent > lsLocations.Count)
+            {
+                Console.WriteLine("Envalid Input ");
+                return;
+            }
+            else
+            {
+                CurrentLocation = lsLocations[Choicecurrent - 1];
 
+            }
+
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace Adventure.Classes
         }
         public void PrintItemInfo(Items item)
         {
-            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.WriteLine("You have received :                                                     ");
             if (item is Armor armorItem)
             {
@@ -51,8 +51,8 @@ namespace Adventure.Classes
                 if (Check == "yes")
                 {
                     int numOfItems = PrintItems();
-                    CheckUseItems(lsItems[numOfItems],ref player);
-                } 
+                    CheckUseItems(lsItems[numOfItems], ref player);
+                }
 
             }
             else
@@ -63,18 +63,18 @@ namespace Adventure.Classes
         }
         public int PrintItems()
         {
-            
+
             for (int i = 0; i < lsItems.Count; i++)
             {
-                Console.WriteLine( $" {lsItems[i].Name}  Press ==> {i + 1} " );
+                Console.WriteLine($" {lsItems[i].Name}  Press ==> {i + 1} ");
 
             }
-            Console.WriteLine($"Press ==> {lsItems.Count + 1} to Exit ");
-            int itemnum = Convert.ToInt16(Console.ReadLine());     /*Handle This */
+            Console.WriteLine($"Press Enter  {lsItems.Count + 1}==>  to Exit ");
+            int itemnum = IsValidInput();     /*Handle This */
             return itemnum - 1;
 
         }
-        public void CheckUseItems(Items item,ref Player player )
+        public void CheckUseItems(Items item, ref Player player)
         {
             if (item is Armor armorItem)
             {
@@ -90,18 +90,44 @@ namespace Adventure.Classes
                 lsItems.Remove(potionItem);
                 if (player.Health > 100)
                 {
-                    player.Health = 100;    
+                    player.Health = 100;
                 }
                 Console.WriteLine($"Your Health Up to {player.Health}");
             }
             else if (item is Weapon weaponItem)
             {
 
-                player.AttackPower += weaponItem.Damage;
+                player.AttackPower = weaponItem.Damage;
                 lsItems.Remove(weaponItem);
-                Console.WriteLine($"Your AttackPower Up To {player.AttackPower}");
+                Console.WriteLine($"Your AttackPower is {player.AttackPower}");
             }
-            
+
+        }
+        public int IsValidInput()
+        {
+
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out int Index))
+                {
+                    if (Index > 0 && Index <= lsItems.Count + 1)
+                    {
+                        return Index;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please enter a valid number:");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                    continue;
+                }
+            }
+
+
+
         }
     }
 }

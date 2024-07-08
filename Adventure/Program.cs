@@ -7,17 +7,11 @@ namespace Adventure
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Welcome to Adventue Quest-Rpg");
             Player player = new Player("Mustafa", 100 ,20);
             Adventures adventure = new Adventures();
-
             adventure.StartGame(player);
-
-            ////ClsMonster monster = new ClsMonster("monster", 100 );
-            //BattleSystem battleSystem = new BattleSystem();
-            ////battleSystem.StartBattle(player, monster);
             EndBattle(player);
-            
-
         }
 
         public static void EndBattle(Player player)
@@ -25,8 +19,6 @@ namespace Adventure
             if (player.Health > 0)
             {
                 Console.WriteLine($"You win and the battle is ended.");
-               
-
             }
             else
             {

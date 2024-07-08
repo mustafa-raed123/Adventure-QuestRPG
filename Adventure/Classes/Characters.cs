@@ -62,21 +62,7 @@ namespace Adventure.Classes
 
             }
 
-            //public void ChooseLevel()
-            //{
-            //    Console.WriteLine("What level do you need? (Easy = 1, Mid = 2, Hard = 3)");
-            //    string input = Console.ReadLine();
 
-            //    if (Enum.TryParse(input, out Level selectedLevel) && Enum.IsDefined(typeof(Level), selectedLevel))
-            //    {
-            //        this.selectedLevel = selectedLevel;
-            //        Console.WriteLine($"You selected: {selectedLevel} (Level {(int)selectedLevel})");
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine($"Invalid input. Defaulting to: {selectedLevel} (Level {(int)selectedLevel})");
-            //    }
-            //}
         }
 
     }

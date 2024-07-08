@@ -18,10 +18,13 @@ namespace Adventure
         {
             if (player.Health > 0)
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"You win and the battle is ended.");
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
+
                 Console.WriteLine("You lose and the battle is ended.");
             }
         }

@@ -42,7 +42,7 @@ namespace Adventure.Classes
             }
             Console.ResetColor();
         }
-        public void CheckUseItems(ref Player player)
+        public void CheckUseItems(ref IBattleStates player)
         {
             if (lsItems.Count > 0)
             {
@@ -74,7 +74,7 @@ namespace Adventure.Classes
             return itemnum - 1;
 
         }
-        public void CheckUseItems(Items item, ref Player player)
+        public void CheckUseItems(Items item, ref IBattleStates player)
         {
             if (item is Armor armorItem)
             {

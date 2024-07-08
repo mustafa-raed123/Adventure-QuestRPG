@@ -20,7 +20,6 @@ namespace Adventure.Classes
         public string CurrentLocation = "Forest";
         List<Monster> lsMonsterThatChoosen = new List<Monster>(); 
         string LocationName = "";
-
         public Adventures()
         {
             lsMonstoer = new List<Monster>();
@@ -109,14 +108,14 @@ namespace Adventure.Classes
 
             return IsConinue;
         }
-        public void StartGame(Player player)
+        public void StartGame(IBattleStates player)
         {
             bool isContinue = true;
             ChoiceMonster();
             while (player.Health > 0 && isContinue)
             {
 
-                Monster monster = lsMonstoer[ChoiceRandomlyMonster()];
+                IBattleStates monster = lsMonstoer[ChoiceRandomlyMonster()];
 
                 ChoiceLocation();
                 Console.WriteLine();
@@ -140,7 +139,7 @@ namespace Adventure.Classes
                 }
             }
         }
-        public void CompleteGame(ref Player player)
+        public void CompleteGame(ref IBattleStates player)
         {
           
             player.Health += 20;

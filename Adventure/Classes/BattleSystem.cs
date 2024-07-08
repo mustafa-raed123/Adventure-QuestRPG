@@ -15,24 +15,17 @@ namespace Adventure.Classes
         Inventory inventory = new Inventory();
         bool attacker= true;
             int Level  = 0;
-            int Demage = 0;
+            
             int xp  = 0;
              public bool Test = false;  // For the Test
             bool  IsWin = false;
           List<string>lsPlayerInventory = new List<string>();
           
-        public bool StartBattle(ref Player player ,ref Monster monster)
+        public bool StartBattle(ref IBattleStates player, ref IBattleStates monster)
         {
             inventory.CheckUseItems(ref player);
             Console.WriteLine("Press any think to start the game ");
             Console.ReadKey();
-
-
-            //if (!Test)
-            //{
-            //    monster.ChooseLevel();
-            //}
-
             do
             {
                 if (!attacker)
@@ -47,7 +40,7 @@ namespace Adventure.Classes
                    
                 }
                 if (attacker) {
-                    Console.ForegroundColor = ConsoleColor.Green;
+                   
                     Console.WriteLine($"{player.Name} Turn: ");
                     
                     Attack( ref player ,ref monster);
@@ -55,12 +48,19 @@ namespace Adventure.Classes
                 }
                 if(attacker)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    
                     Console.WriteLine($"{monster.Name} Turn: ");
                     
                     
                     Attack(ref monster, ref player);
 
+                }
+                if(monster.Health == 0)
+                {
+                    if (RandomItem())
+                    {
+                        InventoryPlayer();
+                    }
                 }
                
                
@@ -76,70 +76,45 @@ namespace Adventure.Classes
             return Item<=20;
 
         }
-        public void Attack(ref Player player, ref Monster monster) {
-            Console.WriteLine($"your Attack Power is {player.AttackPower}");
-            Demage += player.AttackPower; 
-            monster.Health -= player.AttackPower;
-            if (monster.Health > 0)
+        public void Attack(ref IBattleStates Attacker, ref IBattleStates Target) {
+            Console.WriteLine($" Attack Power is {Attacker.AttackPower}");
+            
+            ReduceHealthTarget(ref Attacker, ref Target,Attacker.AttackPower);
+            if (Target.Health > 0)
             {
-
-                PrintInfo(player, monster);
+                PrintInfo(Attacker, Target);
                 Console.WriteLine("------------------------------");
             }
             else
             {
-                monster.Health = 0;
-                PrintInfo(player, monster);
-                attacker = false;
-                if (RandomItem())
-                {
-                    InventoryPlayer();
-                }
-                
+                Target.Health = 0;
+                PrintInfo(Attacker, Target);
+                attacker = false;                
             }
         }
-        public void Attack(ref Monster monster, ref Player player)
-        {
-
-            ReduceHealthPlayer(ref player, monster.AttackPower);
-            if (player.Health > 0)
-            {
-
-                PrintInfo(player, monster);
-                Console.WriteLine("------------------------------");
-            }
-            else
-            {
-                player.Health = 0;
-                PrintInfo(player, monster);
-                attacker = false;
-            }
-
-        }
-
-        public void PrintInfo(Player player  , Monster monster) {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"{player.Name } Health is {player.Health} , And Defense is {player.Defense}");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"{monster.Name} Health is {monster.Health}");
+        public void PrintInfo(IBattleStates Attacker  , IBattleStates Target) {
+            
+            Console.WriteLine($"{Attacker.Name } Health is {Attacker.Health} , And Defense is {Attacker.Defense}");
+            
+            Console.WriteLine($"{Target.Name} Health is {Target.Health}");
 
             Console.ResetColor();
 
-        } 
-      public void ReduceHealthPlayer(ref Player player, int attackMonster)
+        }
+        public void ReduceHealthTarget(ref IBattleStates Attacker , ref IBattleStates Target, int attackPower)
         {
-            
-            int damage = attackMonster - (player.Defense / 2);
 
-            
+            int damage = attackPower - (Target.Defense / 2);
+
+
             if (damage < 0) damage = 0;
 
-            
-            player.Health -= damage;
-            player.Defense -= 5;
-            Console.WriteLine($"Monster attacks with {attackMonster} damage. Player takes {damage} damage.");
 
-            if (player.Defense < 0) player.Defense = 0;
+            Target.Health -= damage;
+            Target.Defense -= 5;
+            Console.WriteLine($"{Attacker.Name} attacks with {attackPower} damage. {Target.Name} takes {damage} damage.");
+
+            if (Target.Defense < 0) Target.Defense = 0;
 
         }
         public void InventoryPlayer()
